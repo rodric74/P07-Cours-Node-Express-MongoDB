@@ -1,0 +1,22 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "Cours sur le back-End avec OpenClassRooms ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodric74/P07-Cours-Node-Express-MongoDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodric74/P07-Cours-Node-Express-MongoDB/issues"
+  },
+  "homepage": "https://github.com/rodric74/P07-Cours-Node-Express-MongoDB#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
