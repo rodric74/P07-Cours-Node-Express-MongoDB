@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/rodric74/P07-Cours-Node-Express-MongoDB#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongoose": "^7.4.2"
   }
 }

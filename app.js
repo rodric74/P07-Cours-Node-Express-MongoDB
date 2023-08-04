@@ -1,8 +1,17 @@
-// importer express avec require 
 const express = require('express'); 
-
-// on appelle la méthode express
 const app = express(); 
+const mongoose = require('mongoose');
+app.use(express.json());
+
+// Encodez le mot de passe
+const password = encodeURIComponent('exploredatabase74'); // Remplacez ceci par votre mot de passe réel
+
+// Utilisez le mot de passe encodé dans la chaîne de connexion
+const uri = `mongodb+srv://rodric74:${password}@cluster0.rvksmil.mongodb.net/?retryWrites=true&w=majority`;
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 //Les middlewares:
 
@@ -13,7 +22,15 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/api/stuff', (req, res, next) => {
+app.post('/api/stuff', (req, res, next)=>{
+  console.log(req.body)
+  res.status(201).json({
+    message:'Objet crée'
+  })
+});
+
+//intercepte les requetes GET
+app.get('/api/stuff', (req, res, next) => {
   const stuff = [
     {
       _id: 'oeihfzeoi',
