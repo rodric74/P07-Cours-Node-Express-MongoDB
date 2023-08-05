@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const stuffRoutes = require('./routes/stuff');
-const userRoutes = require ('./routes/user')
+const userRoutes = require('./routes/user');
 
 const password = encodeURIComponent('mongodb74');
 mongoose.connect(`mongodb+srv://rodric74:${password}@cluster0.rvksmil.mongodb.net/?retryWrites=true&w=majority`,
