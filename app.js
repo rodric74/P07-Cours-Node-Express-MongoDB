@@ -1,19 +1,19 @@
-const express = require('express'); 
-const app = express(); 
+const express = require('express');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-app.use(express.json());
 
-// Encodez le mot de passe
-const password = encodeURIComponent('exploredatabase74'); // Remplacez ceci par votre mot de passe réel
+const stuffRoutes = require('./routes/stuff');
+const userRoutes = require ('./routes/user')
 
-// Utilisez le mot de passe encodé dans la chaîne de connexion
-const uri = `mongodb+srv://rodric74:${password}@cluster0.rvksmil.mongodb.net/?retryWrites=true&w=majority`;
-
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+const password = encodeURIComponent('mongodb74');
+mongoose.connect(`mongodb+srv://rodric74:${password}@cluster0.rvksmil.mongodb.net/?retryWrites=true&w=majority`,
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .catch((error) => console.log('Connexion à MongoDB échouée !', error));
 
-//Les middlewares:
+
+const app = express();
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,35 +22,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/api/stuff', (req, res, next)=>{
-  console.log(req.body)
-  res.status(201).json({
-    message:'Objet crée'
-  })
-});
+app.use(bodyParser.json());
 
-//intercepte les requetes GET
-app.get('/api/stuff', (req, res, next) => {
-  const stuff = [
-    {
-      _id: 'oeihfzeoi',
-      title: 'Mon premier objet',
-      description: 'Les infos de mon premier objet',
-      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-      price: 4900,
-      userId: 'qsomihvqios',
-    },
-    {
-      _id: 'oeihfzeomoihi',
-      title: 'Mon deuxième objet',
-      description: 'Les infos de mon deuxième objet',
-      imageUrl: 'https://cdn.pixabay.com/photo/2019/06/11/18/56/camera-4267692_1280.jpg',
-      price: 2900,
-      userId: 'qsomihvqios',
-    },
-  ];
-  res.status(200).json(stuff);
-});
+app.use('/api/stuff', stuffRoutes);
+app.use('/api/auth', userRoutes);
 
-// on export cette constante pour y accéder depuis nos autres fichers. 
-module.exports = app; 
+module.exports = app;
